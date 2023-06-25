@@ -9,33 +9,35 @@ services:
       - POSTGRES_DB=${DATABASE_NAME}
       - POSTGRES_USER=${DATABASE_USER}
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+    ports:
+      - "5432:5432"
     volumes:
       - ./data/postgres:/data/postgres
     restart: unless-stopped
 
-  pgadmin:
-    image: dpage/pgadmin4:6.18
-    networks:
-      - postgres
-    ports:
-      - "8080:80"
-    volumes:
-      - ./data/pgadmin:/root/.pgadmin
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
-      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
-    restart: unless-stopped
+  # pgadmin:
+  #   image: dpage/pgadmin4:6.18
+  #   networks:
+  #     - postgres
+  #   ports:
+  #     - "8080:80"
+  #   volumes:
+  #     - ./data/pgadmin:/root/.pgadmin
+  #   environment:
+  #     - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+  #     - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+  #   restart: unless-stopped
   
-  nestjs-api:
-    build: 
-      context: .
-      target: production
-    ports:
-      - "3000:3000"
-    depends_on:
-      - postgres
-    networks:
-      - postgres
+  # nestjs-api:
+  #   build: 
+  #     context: .
+  #     target: production
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - postgres
+  #   networks:
+  #     - postgres
  
 networks:
   postgres:
