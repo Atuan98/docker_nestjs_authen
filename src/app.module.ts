@@ -9,6 +9,7 @@ import { UserModule } from './user/user.module';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './role/role.guard';
 import { RequestLoggerMiddleware } from './logger.middleware';
+import { ModuleRedis } from './redis/redis.module';
 
 @Module({
   imports: [AuthenticationModule, 
@@ -24,6 +25,7 @@ import { RequestLoggerMiddleware } from './logger.middleware';
       }),
     }),
     DatabaseModule,
+    ModuleRedis
   ],
   controllers: [AppController],
   providers: [AppService],
